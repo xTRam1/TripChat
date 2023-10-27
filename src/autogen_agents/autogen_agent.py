@@ -1,7 +1,9 @@
 from abc import ABC
-from typing import Any, TypedDict, Unpack
+from typing import Any, TypedDict, Union, Unpack
 
 from autogen import AssistantAgent, UserProxyAgent
+
+from langchain_agents.langchain_agent import LangchainAgent
 
 
 class AutogenConstants:
@@ -23,9 +25,7 @@ class AutogenConstants:
 class AutogenAgentInitParams(TypedDict):
     name: str
     model: str
-    children_agents: list[
-        "AutogenAgent"
-    ]  # TODO: Add the LangchainAgent class next to a | operator when they are implemented
+    children_agents: list[Union["AutogenAgent", "LangchainAgent"]]
     config_list: list[dict[str, Any]]
 
 
@@ -33,7 +33,7 @@ class AutogenAgent(ABC):
     # Initialization parameters
     name: str
     model: str
-    children_agents: list["AutogenAgent"]
+    children_agents: list[Union["AutogenAgent", "LangchainAgent"]]
     config_list: list[dict[str, Any]]
 
     # Private Fields - Calculated
