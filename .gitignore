@@ -1,0 +1,60 @@
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.tmp
+.idea
+*.csv
+*.db
+*.log
+*.db-wal
+*.db-shm
+*.pkl
+.vs/
+.env
+
+*.swp
+*.un~
+*~
+*.DS_Store
+*.ipynb
+
+nuget.exe
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+node_modules/
+
+.aws-sam/
+*.yarn-integrity
+
+venv
