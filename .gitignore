@@ -18,7 +18,6 @@
 *.un~
 *~
 *.DS_Store
-*.ipynb
 
 nuget.exe
 
@@ -26,7 +25,6 @@ nuget.exe
 __pycache__/
 *.py[cod]
 *$py.class
-.ipynb_checkpoints
 
 # Distribution / packaging
 .Python
