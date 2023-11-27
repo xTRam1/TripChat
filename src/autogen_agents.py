@@ -55,10 +55,8 @@ def initialize_team_event_planning(
             }
         },"""
         "You MUST end your message with 'NEXT: HeadofEventPlanning' and report back your results.",
-        overwrite_instructions=True,
         llm_config={
             **llm_config,
-            "assistant_id": "asst_ykDP9rBNik20ulVz3SKiuqUm",
             "tools": [
                 {
                     "type": "function",
@@ -92,10 +90,8 @@ def initialize_team_event_planning(
             }
         },"""
         "You MUST end your message with 'NEXT: HeadofEventPlanning' and report back your results.",
-        overwrite_instructions=True,
         llm_config={
             **llm_config,
-            "assistant_id": "asst_phSVLz3DbSjZWBkKMPVxv8Tv",
             "tools": [
                 {
                     "type": "function",
@@ -163,10 +159,8 @@ def initialize_team_logistics(
             },
         """
         "You MUST end your message with 'NEXT: HeadofLogistics' and report back your results.",
-        overwrite_instructions=True,
         llm_config={
             **llm_config,
-            "assistant_id": "asst_Jz2YQzsDKDw6M97OcJPUs8d9",
             "tools": [
                 {
                     "type": "function",
@@ -190,20 +184,18 @@ def initialize_team_logistics(
         " You MUST first use webSearch, after executing the webSearch, you must call update_travel plan to update your section (Logistics.HotelAirbnbPlanner) with event in the format:"
         """   {
             "AccommodationDetails": {
-            "Name": "",
-            "Address": "",
-            "ContactInfo": "",
-            "CheckIn": "",
-            "CheckOut": "",
-            "Amenities": "",
-            "Link": ""
+                "Name": "",
+                "Address": "",
+                "ContactInfo": "",
+                "CheckIn": "",
+                "CheckOut": "",
+                "Amenities": "",
+                "Link": ""
         }
         },"""
         "You MUST end your message with 'NEXT: HeadofLogistics' and report back your results.",
-        overwrite_instructions=True,
         llm_config={
             **llm_config,
-            "assistant_id": "asst_Eb8UAokbrH3RkhX8GALsSvbg",
             "tools": [
                 {
                     "type": "function",
@@ -247,10 +239,8 @@ def initialize_team_information(
                 "Cuisine": ""
             },"""
         "You MUST end your message with 'NEXT: HeadofInformation' and report back your results.",
-        overwrite_instructions=True,
         llm_config={
             **llm_config,
-            "assistant_id": "asst_5viv95INEbj3FXzVI1l4QTqJ",
             "tools": [
                 {
                     "type": "function",
@@ -277,10 +267,8 @@ def initialize_team_information(
                 "WeatherWarnings": ""
             },"""
         "You MUST end your message with 'NEXT: HeadofInformation' and report back your results.",
-        overwrite_instructions=True,
         llm_config={
             **llm_config,
-            "assistant_id": "asst_u9BQ5LZTu1TBuFAlqeWOSr8w",
             "tools": [
                 {
                     "type": "function",

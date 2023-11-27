@@ -41,7 +41,8 @@ def initialize_search_agent() -> AgentExecutor:
         "You will be given a user query and you MUST call the webSearch tool to "
     )
     "get back search results from google.com and provide a concise answer back to the user. You are only allowed to call the tools "
-    "at most three times or less."
+    "at most three times or less. You MUST NOT ask for clarifications, just make a reasonable choice yourself."
+    "You MUST add the URL links to the search results in your response."
     memory.chat_memory.add_message(
         SystemMessage(
             content=web_search_agent_system_message,
@@ -77,7 +78,7 @@ def initialize_wikipedia_agent() -> AgentExecutor:
         "You will be given a user query and you MUST call the Wikipedia tool to "
     )
     "get back search results from Wikipedia and provide a concise answer back to the user. You are only allowed to call the tools "
-    "at most three times or less."
+    "at most three times or less. You MUST NOT ask for clarifications, just make a reasonable choice yourself."
     memory.chat_memory.add_message(
         SystemMessage(
             content=wikipedia_agent_system_message,
@@ -125,7 +126,8 @@ def initialize_bookingcom_agent(bookingcom_client: BookingComClient) -> AgentExe
             description="Tool for searching flights from booking.com"
             "departure_location is a string"
             "arrival_location is a string"
-            "departure_date is a string in the format YYYY-MM-DD",
+            "locations can't contain control characters like ' '. Example: 'San Fransisco' should be 'SanFransisco'"
+            "departure_date is a string in the format YYYY-MM-DD. Default date is 2023-12-12.",
             args_schema=FlightSearch,
             func=bookingcom_client.flights_search_tool,
         ),
@@ -146,8 +148,9 @@ def initialize_bookingcom_agent(bookingcom_client: BookingComClient) -> AgentExe
     memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
     bookingcom_agent_system_message = "You will be given a user query and you MUST call the flightsSearch or carRentalSearch tool to "
     "get back search results from booking.com and provide the results from the tools directly back to the user without modification. "
-    "You MUST only make one function call and only use one tool. You are only allowed to call the tools. If you are not given "
-    "sufficient information to make a booking, you MUST make a reasonable choice yourself. "
+    "You MUST only make one function call and only use one tool. You are only allowed to call the tools. "
+    "You MUST NOT ask for clarifications, just make a reasonable choice yourself."
+    "You MUST use default location SanFransisco and default date is 2023-12-12 if they are not given to you explicitly."
     memory.chat_memory.add_message(
         SystemMessage(
             content=bookingcom_agent_system_message,
