@@ -20,7 +20,8 @@ plan_template = {
                     "Name": "",
                     "Description": "",
                     "OpeningHours": "",
-                    "EntryFee": ""
+                    "EntryFee": "",
+                    "Link": ""
                     # // Additional attractions can be added in a similar format
                 }
             }
@@ -98,12 +99,12 @@ def update_travel_plan(section: str, data: dict[str, Any]):
     # Update the relevant section with the provided data
     current_section.update(data)
 
-    return plan_template
+    return f"Plan updated with the provided data: {data}"
 
 
 get_travel_plan_template_schema = {
     "name": "get_travel_plan_template",
-    "description": "Get the travel plan template.",
+    "description": "Get the travel plan template. No parameters required. Just call the function like get_travel_plan_template()",
     "parameters": {},
 }
 

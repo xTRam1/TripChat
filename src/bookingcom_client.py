@@ -1,6 +1,7 @@
 import http.client
 import json
 from typing import Any
+from urllib.parse import quote
 
 
 class BookingComClient:
@@ -13,18 +14,24 @@ class BookingComClient:
     _CAR_RENTAL_SEARCH = "/api/v1/cars/searchCarRentals"
     _CAR_RENTAL_VEHICLE_DETAILS = "/api/v1/cars/vehicleDetails"
 
-    # Headers
-    _HEADERS: dict[str, str] = {
-        "X-RapidAPI-Key": "<YOUR_RAPID_API_KEY>",
-        "X-RapidAPI-Host": "<YOUR_RAPID_API_HOST>",
-    }
+    # Fields
+    _rapid_api_host: str
+    _rapid_api_key: str
+    _headers: dict[str, str]
+    _conn: http.client.HTTPSConnection
 
-    def __init__(self):
-        self.conn = http.client.HTTPSConnection("<YOUR_RAPID_API_HOST>")
+    def __init__(self, rapid_api_host: str, rapid_api_key: str):
+        self._rapid_api_host = rapid_api_host
+        self._rapid_api_key = rapid_api_key
+        self._headers = {
+            "X-RapidAPI-Key": self._rapid_api_key,
+            "X-RapidAPI-Host": self._rapid_api_host,
+        }
+        self._conn = http.client.HTTPSConnection(self._rapid_api_host)
 
     def close(self) -> None:
         # Closes the http connections
-        self.conn.close()
+        self._conn.close()
 
     #########
     # TOOLS #
@@ -82,7 +89,7 @@ class BookingComClient:
     #################
 
     def _flight_search_location(self, query: str) -> str:
-        query_params: dict[str, Any] = {"query": query}
+        query_params: dict[str, Any] = {"query": quote(query)}
         data = self._call_api(BookingComClient._FLIGHTS_SEARCH_LOCATION, query_params)
 
         if len(data) == 0:
@@ -206,12 +213,12 @@ class BookingComClient:
     ##################
 
     def _call_api(self, endpoint: str, query_params: dict[str, Any]) -> Any:
-        self.conn.request(
+        self._conn.request(
             "GET",
             self._build_query_string(endpoint, query_params),
-            headers=BookingComClient._HEADERS,
+            headers=self._headers,
         )
-        res = self.conn.getresponse()
+        res = self._conn.getresponse()
         data = res.read()
         data = json.loads(data.decode("utf-8"))
         data = data.get("data", None)

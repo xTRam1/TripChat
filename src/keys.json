@@ -1,0 +1,6 @@
+{
+  "OPENAI_API_KEY": "sk-<your key here>",
+  "SERP_API_KEY": "<your key here>",
+  "RAPID_API_HOST": "<your host here>",
+  "RAPID_API_KEY": "<your key here>"
+}

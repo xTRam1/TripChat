@@ -1,3 +1,5 @@
+import datetime
+
 from langchain.agents import AgentExecutor, AgentType, initialize_agent
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
@@ -9,15 +11,13 @@ from pydantic import BaseModel
 from bookingcom_client import BookingComClient
 from config import MAX_TOKENS, MODEL_NAME, TEMPERATURE
 
-SERP_API_KEY = "<YOUR_SERP_API_KEY>"
-
 
 class WebSearch(BaseModel):
     input: str
 
 
-def initialize_search_agent() -> AgentExecutor:
-    serp_api_wrapper = SerpAPIWrapper(serpapi_api_key=SERP_API_KEY)  # type: ignore
+def initialize_search_agent(serp_api_key: str) -> AgentExecutor:
+    serp_api_wrapper = SerpAPIWrapper(serpapi_api_key=serp_api_key)  # type: ignore
     web_search_llm = ChatOpenAI(
         model=MODEL_NAME,
         client=None,
@@ -120,14 +120,15 @@ def initialize_bookingcom_agent(bookingcom_client: BookingComClient) -> AgentExe
         streaming=False,
         max_tokens=MAX_TOKENS,
     )
+    today = datetime.date.today().strftime("%Y-%m-%d")
     tools = [
         StructuredTool(
             name="flightsSearch",
             description="Tool for searching flights from booking.com"
             "departure_location is a string"
             "arrival_location is a string"
-            "locations can't contain control characters like ' '. Example: 'San Fransisco' should be 'SanFransisco'"
-            "departure_date is a string in the format YYYY-MM-DD. Default date is 2023-12-12.",
+            "If it is not given, the default location is San Fransisco."
+            f"departure_date is a string in the format YYYY-MM-DD. Default date is two weeks later from today (today is {today})",
             args_schema=FlightSearch,
             func=bookingcom_client.flights_search_tool,
         ),
@@ -148,9 +149,10 @@ def initialize_bookingcom_agent(bookingcom_client: BookingComClient) -> AgentExe
     memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
     bookingcom_agent_system_message = "You will be given a user query and you MUST call the flightsSearch or carRentalSearch tool to "
     "get back search results from booking.com and provide the results from the tools directly back to the user without modification. "
-    "You MUST only make one function call and only use one tool. You are only allowed to call the tools. "
+    "You are only allowed to call the tools. "
     "You MUST NOT ask for clarifications, just make a reasonable choice yourself."
-    "You MUST use default location SanFransisco and default date is 2023-12-12 if they are not given to you explicitly."
+    f"You MUST use default location San Fransisco and default date is two weeks from today (today is {today}) if they are not given to you explicitly."
+    "If the user told you when they want to be back by, you MUST return the results for the return trip as well."
     memory.chat_memory.add_message(
         SystemMessage(
             content=bookingcom_agent_system_message,
