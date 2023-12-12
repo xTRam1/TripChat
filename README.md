@@ -17,7 +17,7 @@ TripChat revolutionizes travel planning by employing a hierarchical agent struct
 ## Installation and Setup
 
 1. **Install Dependencies**: Start by installing necessary dependencies from `requirements.txt`.
-2. **Configure API Keys**: Modify the `keys.json` file with the relevant API keys.
+2. **Configure API Keys**: Modify the `keys.json` file with the relevant API keys. We use [this](https://rapidapi.com/DataCrawler/api/booking-com15) Booking.com API.
 3. **Running the Application**: Navigate to the `src/` folder and run `python3 main.py`.
 
 ## Usage
@@ -31,13 +31,9 @@ After running `main.py`, provide a query detailing your trip plan requirements (
 - **Speaker Selection Logic**: A novel approach to select speakers, enhancing the hierarchy and communication flow.
 - **Functionality**: Agents use specific functions for updating the shared plan and interacting with external tools.
 
-## Contributing
-
-Your contributions are welcome! Please read our contributing guidelines to get started.
-
 ## Acknowledgments
 
-Special thanks to all contributors and supporters of the TripChat project.
+Special thanks to CS194 Berkeley course staff for their continued support.
 
 ---
 
