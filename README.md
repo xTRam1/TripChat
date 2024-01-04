@@ -4,8 +4,7 @@
 
 ## Overview
 
-TripChat revolutionizes travel planning by employing a hierarchical agent structure, where agents with diverse responsibilities collaborate to create a comprehensive trip plan. This structure allows for efficient division of tasks such as finding local events, hotels, flights, and more.
-
+TripChat revolutionizes the process of travel planning by implementing a hierarchical agent structure. In this system, agents with specialized roles collaborate to curate a comprehensive and personalized trip plan. Each agent focuses on different aspects of travel, such as discovering local events, booking hotels, finding the best flight options, and more. This organized division of labor enhances the efficiency and effectiveness of the trip planning process.
 ### Key Features
 
 - **Hierarchical Agent Structure**: Different teams and agents work together for a unified goal, enhancing the efficiency of travel planning.
